@@ -11,4 +11,6 @@ class ConfigEditController(BaseController):
             abort(403, _('Need to be system administrator to administer'))
 
     def edit_config(self):
-        return render('configedit/edit.html')
+        return render('configedit/edit.html', extra_vars={
+            'data': {}, 'errors': {}
+            })

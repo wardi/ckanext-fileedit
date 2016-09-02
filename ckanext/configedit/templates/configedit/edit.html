@@ -1,1 +1,32 @@
-hello
+{% extends "admin/base.html" %}
+
+{% import 'macros/form.html' as form %}
+
+{% block primary_content_inner %}
+  {{ form.errors(error_summary) }}
+
+  <form method='post' action="" class="form-horizontal" id="configedit-form">
+
+    {{ form.textarea(
+      'config', id='field-config', label=_('Schema'), value=data.config,
+      error=errors.config) }}
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" name="save">{{
+        _('Update Schema') }}</button>
+    </div>
+  </form>
+{% endblock %}
+
+{% block secondary_content %}
+  <div class="module module-narrow module-shallow">
+    <h2 class="module-heading">{{ _("Example Schema Fields") }}</h2>
+    <div class="module-content">
+      <pre
+>- field_name: text_field
+  label: A Text Field
+
+
+</pre>
+    </div>
+  </div>
+{% endblock %}
