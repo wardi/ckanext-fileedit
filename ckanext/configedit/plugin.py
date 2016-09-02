@@ -13,6 +13,6 @@ class ConfigEditPlugin(p.SingletonPlugin):
             '/ckan-admin/edit-config',
             action='edit_config',
             ckan_icon='wrench',
-            controller='ckanext.configedit.controllers:ConfigEditController',
+            controller='ckanext.configedit.controller:ConfigEditController',
             )
         return m

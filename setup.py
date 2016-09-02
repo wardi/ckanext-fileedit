@@ -14,6 +14,6 @@ setup(
     zip_safe=False,
     entry_points = """
         [ckan.plugins]
-        configedit = ckanext.configedit.plugins:ConfigEditPlugin
+        configedit = ckanext.configedit.plugin:ConfigEditPlugin
     """
 )
