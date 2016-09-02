@@ -1,5 +1,5 @@
 from ckan.plugins.toolkit import (
-    _, BaseController, check_access, NotAuthorized, abort,
+    _, BaseController, check_access, NotAuthorized, abort, render,
     )
 
 class ConfigEditController(BaseController):
@@ -11,4 +11,4 @@ class ConfigEditController(BaseController):
             abort(403, _('Need to be system administrator to administer'))
 
     def edit_config(self):
-        return 'pass'
+        return render('configedit/edit.html')

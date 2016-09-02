@@ -6,6 +6,7 @@ class ConfigEditPlugin(p.SingletonPlugin):
 
     def update_config(self, config):
         p.toolkit.add_ckan_admin_tab(config, 'edit_config', 'Edit Schema')
+        p.toolkit.add_template_directory(config, 'templates')
 
     def before_map(self, m):
         m.connect(
