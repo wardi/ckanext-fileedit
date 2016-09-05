@@ -28,17 +28,23 @@ class FileEditController(BaseController):
             abort(404, _('Not found'))
         num = int(num)
         f = editable_files[num]
+        errors = {}
         if request.POST:
-            file_edit_update(num, request.POST['contents'])
-            h.flash_success(_("File Updated"))
-            redirect_to(
-                controller='ckanext.fileedit.controller:FileEditController',
-                action='edit_file',
-                num='0')
+            contents = request.POST['contents']
+            err = file_edit_update(num, contents)
+            if not err:
+                h.flash_success(_("File Updated"))
+                redirect_to(
+                    controller='ckanext.fileedit.controller:FileEditController',
+                    action='edit_file',
+                    num='0')
+            errors['contents'] = [err]
+        else:
+            contents = file_edit_show(num)
 
         return render('fileedit/edit.html', extra_vars={
-            'data': {'contents': file_edit_show(num)},
-            'errors': {},
+            'data': {'contents': contents},
+            'errors': errors,
             'editable_files': editable_files,
             'label': f['label'],
             'num': num,
@@ -54,7 +60,9 @@ def file_edit_show(num):
 
 def file_edit_update(num, contents):
     f = editable_files[num]
-    # FIXME: call validate, check errors
+    err = f['validate'](f, contents)
+    if err:
+        return err
     with codecs.open(f['path'], 'w', 'utf-8') as cf:
         cf.write(contents)
     f['after_update'](f)
