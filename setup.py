@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(
-    name='ckanext-configedit',
+    name='ckanext-fileedit',
     version='0.1',
     description='',
     license='AGPL3',
@@ -10,10 +10,10 @@ setup(
     author_email='',
     url='',
     namespace_packages=['ckanext'],
-    packages=['ckanext.configedit'],
+    packages=['ckanext.fileedit'],
     zip_safe=False,
     entry_points = """
         [ckan.plugins]
-        configedit = ckanext.configedit.plugin:ConfigEditPlugin
+        file_edit = ckanext.fileedit.plugin:FileEditPlugin
     """
 )
