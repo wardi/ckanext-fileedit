@@ -4,7 +4,7 @@
 ```ini
 ckan.plugins = ... file_edit
 
-file_edit.editable_paths = [{"path": "/path/to/my/file"}]
+file_edit.editable_files = [{"path": "/path/to/my/file"}]
 ```
 
 ## Full config
@@ -12,7 +12,7 @@ file_edit.editable_paths = [{"path": "/path/to/my/file"}]
 ```ini
 ckan.plugins = ... file_edit
 
-file_edit.editable_paths = [
+file_edit.editable_files = [
   {
     "path": "/path/to/my/file",
     "label": "My File",
@@ -23,3 +23,7 @@ file_edit.editable_paths = [
     "path": "/path/to/another_file"
   }]
 ```
+
+Indentation on the left is required for the ini parser to pass the
+complete JSON `editable_files` value
+
