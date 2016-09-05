@@ -5,28 +5,28 @@
 {% block primary_content_inner %}
   {{ form.errors(error_summary) }}
 
-  <form method='post' action="" class="form-horizontal" id="configedit-form">
+  <form method='post' action="" class="form-vertical" id="configedit-form">
 
     {{ form.textarea(
-      'config', id='field-config', label=_('Schema'), value=data.config,
+      'config', id='field-config', label=_('File Contents'), value=data.config,
       error=errors.config) }}
     <div class="form-actions">
       <button type="submit" class="btn btn-primary" name="save">{{
-        _('Update Schema') }}</button>
+        _('Update File') }}</button>
     </div>
   </form>
 {% endblock %}
 
 {% block secondary_content %}
   <div class="module module-narrow module-shallow">
-    <h2 class="module-heading">{{ _("Example Schema Fields") }}</h2>
+    <h2 class="module-heading">{{ _("Editable Files") }}</h2>
     <div class="module-content">
-      <pre
->- field_name: text_field
-  label: A Text Field
-
-
-</pre>
+      <ul>
+      {% for f in editable_files %}
+        <li><a href="{% url_for
+          controller='ckanext.fileedit.controller:FileEditController',
+          action='edit_file' %}">{{ f.label }}</a></li>
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
