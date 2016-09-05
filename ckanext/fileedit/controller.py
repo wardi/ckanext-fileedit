@@ -57,4 +57,4 @@ def file_edit_update(num, contents):
     # FIXME: call validate, check errors
     with codecs.open(f['path'], 'w', 'utf-8') as cf:
         cf.write(contents)
-    # FIXME: call after_update
+    f['after_update'](f)
