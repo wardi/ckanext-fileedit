@@ -12,7 +12,8 @@ class FileEditPlugin(p.SingletonPlugin):
     p.implements(p.IRoutes, inherit=True)
 
     def update_config(self, config):
-        p.toolkit.add_ckan_admin_tab(config, 'edit_file', 'File Editor')
+        p.toolkit.add_ckan_admin_tab(
+            config, 'edit_file_default', 'File Editor')
         p.toolkit.add_template_directory(config, 'templates')
 
     def configure(self, config):
@@ -27,8 +28,14 @@ class FileEditPlugin(p.SingletonPlugin):
 
     def before_map(self, m):
         m.connect(
-            'edit_file',
+            'edit_file_default',
             '/ckan-admin/file-edit',
+            action='edit_file_default',
+            ckan_icon='wrench',
+            controller='ckanext.fileedit.controller:FileEditController',
+            )
+        m.connect(
+            '/ckan-admin/file-edit/{num}',
             action='edit_file',
             ckan_icon='wrench',
             controller='ckanext.fileedit.controller:FileEditController',

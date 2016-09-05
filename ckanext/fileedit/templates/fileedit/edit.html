@@ -8,7 +8,7 @@
   <form method='post' action="" class="form-vertical" id="configedit-form">
 
     {{ form.textarea(
-      'config', id='field-config', label=_('File Contents'), value=data.config,
+      'config', id='field-config', label=label, value=data.config,
       error=errors.config) }}
     <div class="form-actions">
       <button type="submit" class="btn btn-primary" name="save">{{
@@ -19,13 +19,13 @@
 
 {% block secondary_content %}
   <div class="module module-narrow module-shallow">
-    <h2 class="module-heading">{{ _("Editable Files") }}</h2>
+    <h2 class="module-heading">{{ _("Files") }}</h2>
     <div class="module-content">
       <ul>
       {% for f in editable_files %}
-        <li><a href="{% url_for
+        <li><a href="{{ h.url_for(
           controller='ckanext.fileedit.controller:FileEditController',
-          action='edit_file' %}">{{ f.label }}</a></li>
+          action='edit_file', num=loop.index0) }}">{{ f.label }}</a></li>
       {% endfor %}
     </div>
   </div>
