@@ -2,7 +2,7 @@ from os.path import basename
 from importlib import import_module
 
 import ckan.plugins as p
-import yaml
+import json
 
 from ckanext.fileedit.config import editable_files
 
@@ -18,7 +18,7 @@ class FileEditPlugin(p.SingletonPlugin):
 
     def configure(self, config):
         editable_files[:] = []  # in-place
-        for c in yaml.load(config['file_edit.editable_files']):
+        for c in json.loads(config['file_edit.editable_files']):
             editable_files.append({
                 'path': c['path'],
                 'label': c.get('label', basename(c['path'])),
