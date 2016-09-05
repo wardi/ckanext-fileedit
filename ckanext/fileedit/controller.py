@@ -40,7 +40,7 @@ class FileEditController(BaseController):
 # FIXME: make these logic functions so they're usable from the API
 def file_edit_show(num):
     f = editable_files[num]
-    # r+ to make sure we can create/write it
+    # r+ to make sure we can write it
     with codecs.open(f['path'], 'r+', 'utf-8') as cf:
         return cf.read()
 
