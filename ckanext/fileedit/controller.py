@@ -1,7 +1,9 @@
 import re
+import codecs
 
 from ckan.plugins.toolkit import (
-    _, BaseController, check_access, NotAuthorized, abort, render, redirect_to
+    _, BaseController, check_access, NotAuthorized, abort, render,
+    redirect_to,
     )
 
 from ckanext.fileedit.config import editable_files
@@ -27,6 +29,22 @@ class FileEditController(BaseController):
         num = int(num)
         f = editable_files[num]
         return render('fileedit/edit.html', extra_vars={
-            'data': {}, 'errors': {}, 'editable_files': editable_files,
-            'label': f['label'], 'num': num,
+            'data': {'contents': file_edit_show(num)},
+            'errors': {},
+            'editable_files': editable_files,
+            'label': f['label'],
+            'num': num,
             })
+
+
+# FIXME: make these logic functions so they're usable from the API
+def file_edit_show(num):
+    f = editable_files[num]
+    # r+ to make sure we can create/write it
+    with codecs.open(f['path'], 'r+', 'utf-8') as cf:
+        return cf.read()
+
+def file_edit_update(num, contents):
+    f = editable_files[num]
+    with codecs.open(f['path'], 'w', 'utf-8') as cf:
+        cf.write(contents)
