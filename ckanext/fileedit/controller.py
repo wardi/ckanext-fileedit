@@ -2,8 +2,8 @@ import re
 import codecs
 
 from ckan.plugins.toolkit import (
-    _, BaseController, check_access, NotAuthorized, abort, render,
-    redirect_to,
+    _, h, BaseController, check_access, NotAuthorized, abort, render,
+    redirect_to, request,
     )
 
 from ckanext.fileedit.config import editable_files
@@ -28,6 +28,14 @@ class FileEditController(BaseController):
             abort(404, _('Not found'))
         num = int(num)
         f = editable_files[num]
+        if request.POST:
+            file_edit_update(num, request.POST['contents'])
+            h.flash_success(_("File Updated"))
+            redirect_to(
+                controller='ckanext.fileedit.controller:FileEditController',
+                action='edit_file',
+                num='0')
+
         return render('fileedit/edit.html', extra_vars={
             'data': {'contents': file_edit_show(num)},
             'errors': {},
@@ -46,5 +54,7 @@ def file_edit_show(num):
 
 def file_edit_update(num, contents):
     f = editable_files[num]
+    # FIXME: call validate, check errors
     with codecs.open(f['path'], 'w', 'utf-8') as cf:
         cf.write(contents)
+    # FIXME: call after_update

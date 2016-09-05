@@ -9,7 +9,7 @@
 
     {{ form.textarea(
       'contents', id='field-contents', label=label, value=data.contents,
-      error=errors.config) }}
+      error=errors.config, rows=20) }}
     <div class="form-actions">
       <button type="submit" class="btn btn-primary" name="save">{{
         _('Update File') }}</button>

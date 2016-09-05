@@ -23,7 +23,8 @@ class FileEditPlugin(p.SingletonPlugin):
                 'path': c['path'],
                 'label': c.get('label', basename(c['path'])),
                 'validate': import_symbol(c.get('validate')) or nothing,
-                'after_save': import_symbol(c.get('after_save')) or nothing,
+                'after_update':
+                    import_symbol(c.get('after_update')) or nothing,
             })
 
     def before_map(self, m):
