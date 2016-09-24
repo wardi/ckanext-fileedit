@@ -1,4 +1,6 @@
 
+![ckanext-fileedit screenshot](fileedit.png)
+
 ## Minimal config
 
 ```ini
